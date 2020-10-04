@@ -16,8 +16,6 @@ router.post('/api/payments', async (req: Request, res: Response) => {
 
   const order = await Order.findById(orderId).populate('ticket');
 
-  console.log(order);
-
   if (!order) {
     throw new Error('order not found!');
   }
@@ -33,8 +31,17 @@ router.post('/api/payments', async (req: Request, res: Response) => {
     stripeId: charge.id,
   });
 
-  // Save payment in database
-  await payment.save();
+  // Save payment in database and update the order to completed
+  order.set({
+    completed: true,
+  });
+
+  try {
+    await payment.save();
+    await order.save();
+  } catch (err) {
+    throw new Error(err);
+  }
 
   res.send(payment);
 });

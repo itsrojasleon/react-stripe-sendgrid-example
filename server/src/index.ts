@@ -1,16 +1,14 @@
 import mongoose from 'mongoose';
 import { app } from './app';
+import { config } from './config/dev';
 
 const main = async () => {
   try {
-    await mongoose.connect(
-      'mongodb://test:password1@ds119489.mlab.com:19489/react-stripe-sendgrid-test',
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-      }
-    );
+    await mongoose.connect(config.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
     console.log('Connected to mongo db');
   } catch (err) {
     console.error(err);

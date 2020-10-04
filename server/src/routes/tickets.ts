@@ -9,6 +9,13 @@ router.get('/api/tickets', async (req: Request, res: Response) => {
   res.send(tickets);
 });
 
+router.get('/api/tickets/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const ticket = await Ticket.findById(id);
+
+  res.send(ticket);
+});
+
 router.post('/api/tickets', async (req: Request, res: Response) => {
   const { title, price } = req.body;
 

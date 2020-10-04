@@ -7,6 +7,7 @@ interface OrderAttrs {
 
 interface OrderDoc extends mongoose.Document {
   ticket: TicketDoc
+  completed: boolean
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -17,7 +18,9 @@ const ticketSchema = new mongoose.Schema({
   ticket: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ticket'
-
+  },
+  completed: {
+    type: Boolean,
   }
 })
 

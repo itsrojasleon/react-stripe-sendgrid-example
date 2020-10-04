@@ -1,10 +1,14 @@
 import StripeCheckout from 'react-stripe-checkout';
+import Title from '../../components/title';
 import { fetcher } from '../../api/fetcher';
 
 const Order = ({ order }) => {
   return (
-    <div>
-      <h3>{order.ticket.title}</h3>
+    <>
+      <Title>Complete your order</Title>
+      <h3>
+        {order.ticket.title} - ${order.ticket.price.toFixed(2)}
+      </h3>
       <StripeCheckout
         token={({ id }) =>
           fetcher.post('/api/payments', {
@@ -17,7 +21,7 @@ const Order = ({ order }) => {
         email="rojasleon.dev@gmail.com"
       />
 
-      <button
+      {/* <button
         onClick={() => {
           fetcher.post('/api/mails', {
             to: 'rojasleon.dev@gmail.com',
@@ -26,8 +30,8 @@ const Order = ({ order }) => {
           });
         }}>
         Send Email
-      </button>
-    </div>
+      </button> */}
+    </>
   );
 };
 

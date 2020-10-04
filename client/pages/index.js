@@ -1,16 +1,27 @@
+import Link from 'next/link';
 import Title from '../components/title';
-import Ticket from '../components/ticket';
+import Table from '../components/table';
 import { fetcher } from '../api/fetcher';
 
 const Home = ({ tickets }) => {
   return (
     <div>
       <Title>Ticket List</Title>
-      <div className="ui list">
-        {tickets.map(({ price, title }) => (
-          <Ticket key={title} price={price} title={title} />
+      <Table titles={['title', 'price', 'visit']}>
+        {tickets.map(({ price, title, _id }) => (
+          <tr key={title}>
+            <td>{title}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>
+              <Link href="/tickets/[id]" as={`/tickets/${_id}`}>
+                <a style={{ color: 'black' }}>
+                  <i className="eye icon"></i>
+                </a>
+              </Link>
+            </td>
+          </tr>
         ))}
-      </div>
+      </Table>
     </div>
   );
 };
