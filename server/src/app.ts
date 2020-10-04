@@ -16,5 +16,4 @@ app.use(ordersRouter);
 app.use(paymentsRouter);
 app.use(mailsRouter);
 
-// mongodb://<dbuser>:<dbpassword>@ds119489.mlab.com:19489/react-stripe-sendgrid-test
 export { app };
